@@ -5,44 +5,52 @@ public class Exemplar {
     private Livro livro;
     private boolean disponivel = true;
 
-    public Exemplar(){}
+    public Exemplar() {
+    }
 
-    public Exemplar(int id, Livro livro){
+    public Exemplar(int id, Livro livro) {
         setId(id);
         setLivro(livro);
     }
-public int getId(){
+
+    public int getId() {
         return id;
-}
-public void setId(int id) {
-    if (id <= 0) {
-        throw ner IllegalArgumentException("ID do exemplar inválido");
     }
-    this.id = id;
-}
-public Livro getLivro() {
-    return livro;
-}
-public void setLivro(Livro livro) {
-    if (livro == null) {
-        throw new IllegalArgumentException("Livro não pode ser nulo");
+
+    public void setId(int id) {
+        if (id <= 0) {
+            throw new IllegalArgumentException("ID do exemplar inválido");
+        }
+        this.id = id;
     }
-    this.livro = livro;
-}
-public boolean isDisponivel() {
-    return disponivel;
-}
-public void setDisponivel(boolean disponivel) {
-    this.disponivel = disponivel;
+
+    public Livro getLivro() {
+        return livro;
+    }
+
+    public void setLivro(Livro livro) {
+        if (livro == null) {
+            throw new IllegalArgumentException("Livro não pode ser nulo");
+        }
+        this.livro = livro;
+    }
+
+    public boolean isDisponivel() {
+        return disponivel;
+    }
+
+    public void setDisponivel(boolean disponivel) {
+        this.disponivel = disponivel;
+    }
+
+    @Override
+    public String toString() {
+        return "Exemplar " + id +
+                " | Livro: " + livro.getTitulo() +
+                " | Disponível: " + disponivel;
+    }
 }
 
-@override
-    public String toString() {
-    return "Exemplar " + id +
-            " | Livro: " + livro.getTitulo() +
-            " | Disponível: " + disponivel;
-}
-    }
-}
-}
-}
+
+
+

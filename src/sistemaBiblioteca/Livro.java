@@ -7,7 +7,7 @@ public class Livro {
      private String titulo;
      private String autor;
      private int ano;
-     private ArrayList<Categoria> categorias = new Arraylist <>();
+     private ArrayList<Categoria> categorias = new ArrayList<>();
 
      public Livro() {}
 
@@ -51,7 +51,7 @@ public void adicionarCategoria(Categoria c) {
     }
 }
 public ArrayList<Categoria> getCategorias() {
-    return categorias
+    return categorias;
 }
 
 @Override
