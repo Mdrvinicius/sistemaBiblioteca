@@ -32,9 +32,20 @@ public abstract class Pessoa implements Serializable {
 
     public void setCpf(String cpf){
         if (cpf == null || cpf.length() != 11){
-        throw new IllegalArgumentException("CPF inválido");
-        }this.cpf = cpf;
+        try{
+            throw new ExceptionCpf("CPF inválido");
+        }catch (ExceptionCpf e){
+            System.out.println(e.getMessage());
+            return;
+            }
+        }
+        this.cpf = cpf;
     }
 
     public abstract String getTipoPessoa();
+
+    @Override
+    public String toString(){
+        return getTipoPessoa() + " | Nome: " + nome + " | CPF: " + cpf;
+    }
 }

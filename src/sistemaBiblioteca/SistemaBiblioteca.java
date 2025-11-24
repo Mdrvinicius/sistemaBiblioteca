@@ -1,12 +1,18 @@
 package sistemaBiblioteca;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class SistemaBiblioteca {
+public class SistemaBiblioteca implements Serializable {
+    private static final long serialVersionUID = 1L;
     private ArrayList<Pessoa> pessoas = new ArrayList<>();
     private ArrayList<Livro> livros = new ArrayList<>();
     private ArrayList<Exemplar> exemplares = new ArrayList<>();
     private ArrayList<Emprestimo> emprestimos = new ArrayList<>();
+
+    public ArrayList<Exemplar> getExemplares(){
+        return exemplares;
+    }
 
     public void cadastrarPessoa(Pessoa p){
         if(p != null){
@@ -15,7 +21,7 @@ public class SistemaBiblioteca {
         }
     }
 
-    public void caddastrarLivro(Livro l){
+    public void cadastrarLivro(Livro l){
         if(l != null){
             livros.add(l);
             System.out.println("Livro cadastrada com sucesso!");
@@ -36,13 +42,13 @@ public class SistemaBiblioteca {
         }
     }
 
-    public void listarPessoa(){
+    public void listarPessoas(){
         for(Pessoa p : pessoas){
             System.out.println(p);
         }
     }
 
-    public void listrarLivros(){
+    public void listarLivros(){
         for(Livro l : livros){
             System.out.println(l);
         }
@@ -83,5 +89,24 @@ public class SistemaBiblioteca {
             }
         }return null;
     }
+
+    public void cadastrarExemplar(Exemplar ex){
+        if(ex != null){
+            exemplares.add(ex);
+            System.out.println("Exemplar cadastrado!");
+        }
+    }
+
+    public Exemplar buscarExemplarPorId(int id){
+        for(Exemplar ex : exemplares){
+            if(ex.getId() == id){
+                return ex;
+            }
+        }
+        return null;
+    }
+
+
+
 
 }

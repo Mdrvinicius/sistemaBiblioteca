@@ -9,68 +9,85 @@ public class Emprestimo {
     private LocalDate dataPrevistaDevolucao;
     private LocalDate dataDevolucao;
 
-    public Emprestimo(){
+    public Emprestimo() {
 
     }
 
-    public Emprestimo(Pessoa pessoa, Exemplar exemplar, LocalDate dataEmprestimo, LocalDate dataPrevistaDevolucao, LocalDate dataDevolucao) {
+    public Emprestimo(Pessoa pessoa, Exemplar exemplar) {
         setPessoa(pessoa);
         setExemplar(exemplar);
-        this.dataEmprestimo = dataEmprestimo;
-        this.dataPrevistaDevolucao = dataPrevistaDevolucao.plusDays(7);
-        this.dataDevolucao = dataDevolucao;
+
+        this.dataEmprestimo = LocalDate.now();
+        this.dataPrevistaDevolucao = this.dataEmprestimo.plusDays(7);
+        this.dataDevolucao = null;
     }
 
-        public Pessoa getPessoa(){
-            return pessoa;
-        }
+    public Pessoa getPessoa() {
+        return pessoa;
+    }
 
-        public void setPessoa(Pessoa pessoa){
-            if(pessoa == null){
-                throw new IllegalArgumentException("Pessoa inválida");
-            }this.pessoa = pessoa;
+    public void setPessoa(Pessoa pessoa) {
+        if (pessoa == null) {
+            throw new IllegalArgumentException("Pessoa inválida");
         }
+        this.pessoa = pessoa;
+    }
 
-        public Exemplar getExemplar(){
+    public Exemplar getExemplar() {
         return exemplar;
-        }
+    }
 
-        public void setExemplar(Exemplar exemplar){
-            if(exemplar == null){
-                throw new IllegalArgumentException("Exemplar inválido");
-            }this.exemplar = exemplar;
-            exemplar.setDisponivel(false);
+    public void setExemplar(Exemplar exemplar) {
+        if (exemplar == null) {
+            try {
+                throw new ExceptionLivro("Exemplar inválido");
+            } catch (ExceptionLivro e) {
+                System.out.println(e.getMessage());
+                return;
+            }
         }
-
-        public LocalDate getDataEmprestimo(){
-            return dataEmprestimo;
+        if (!exemplar.isDisponivel()) {
+            try {
+                throw new ExceptionLivro("O exemplar já está emprestado");
+            } catch (ExceptionLivro e) {
+                System.out.println(e.getMessage());
+                return;
+            }
         }
+        this.exemplar = exemplar;
+        exemplar.setDisponivel(false);
+    }
 
-        public LocalDate getDataPrevistaDevolucao(){
-            return dataPrevistaDevolucao;
-        }
+    public LocalDate getDataEmprestimo() {
+        return dataEmprestimo;
+    }
 
-        public LocalDate getDataDevolucao(){
+    public LocalDate getDataPrevistaDevolucao() {
+        return dataPrevistaDevolucao;
+    }
+
+    public LocalDate getDataDevolucao() {
         return dataDevolucao;
-        }
+    }
 
-        public void registrarDevolucao(){
-            this.dataDevolucao = LocalDate.now();
-            exemplar.setDisponivel(true);
-        }
+    public void registrarDevolucao() {
+        this.dataDevolucao = LocalDate.now();
+        exemplar.setDisponivel(true);
+    }
 
-        @Override
-        public String toString(){
+    public void setDataEmprestimo(LocalDate data){
+        this.dataEmprestimo = data;
+    }
+
+    @Override
+    public String toString() {
         return "Empréstimo -> Pessoa: " + pessoa.getNome() +
                 " | Livro: " + exemplar.getLivro().getTitulo() +
                 " | Data:  " + dataEmprestimo +
                 " | Prevista: " + dataPrevistaDevolucao +
                 " | Devolução " + (dataDevolucao == null ? "Ainda não devolvido" : dataDevolucao);
-        }
-
-
-
-
-
-
+    }
 }
+
+
+
